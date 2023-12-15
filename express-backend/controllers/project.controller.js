@@ -34,6 +34,25 @@ exports.getProject = async (req, res) => {
 
 exports.createProject = async (req, res) => {
   try {
+    const nomeEmpresa = req.body.name
+
+    const caracteres = nomeEmpresa.split('');
+
+    const abbreviation = caracteres
+      .map((caractere, index) => {
+        if (index === 0 || caracteres[index - 1] === ' ' || /[^aeiouAEIOU]/.test(caractere)) {
+          // Primeira letra de cada palavra ou consoante
+          return caractere.toUpperCase();
+        } else {
+          // Caractere é uma vogal
+          return ''; // Ignorar vogais
+        }
+      })
+      .join('')
+      .slice(0, 2); 
+
+    req.body.abbreviation = abbreviation
+
     const project = await client.project.create({ data: req.body });
     await client.member.create({
       data: { projectId: project.id, userId: req.body.userId, isAdmin: true },

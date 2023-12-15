@@ -35,6 +35,7 @@ export interface Issue {
   id: number;
   summary: string;
   descr: string;
+  abbreviationProject: string;
   type: number;
   priority: number;
   order: number;

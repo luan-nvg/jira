@@ -34,6 +34,7 @@ const IssueDetailModal = (props: IssueModalProps) => {
     assignees,
     summary,
     descr,
+    abbreviationProject,
     createdAt,
     updatedAt,
   } = issues[issue.idx];
@@ -57,7 +58,7 @@ const IssueDetailModal = (props: IssueModalProps) => {
     <Model onClose={onClose} className='max-w-[65rem]'>
       <>
         <div className='mt-3 flex items-center justify-between text-[16px] text-gray-600 sm:px-3'>
-          <Item size='h-4 w-4' {...types[type]} text={'Issue-' + id} />
+          <Item size='h-4 w-4' {...types[type]} text={abbreviationProject + ' - ' + id} />
           <div className='text-black'>
             {isMine && (
               <button onClick={() => setIsOpen(true)} title='Delete' className='btn-icon text-xl'>

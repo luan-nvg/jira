@@ -29,17 +29,18 @@ model User {
 }
 
 model Project {
-  id        Int        @id @default(autoincrement())
-  name      String     @db.VarChar(50)
-  descr     String?    @db.VarChar(200)
-  repo      String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  User      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
-  lists     List[]
-  members   Member[]
-  assignees Assignee[]
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(50)
+  descr        String?    @db.VarChar(200)
+  abbreviation String?    @db.VarChar(2)
+  repo         String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  User         User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  lists        List[]
+  members      Member[]
+  assignees    Assignee[]
 }
 
 model Member {
@@ -64,21 +65,22 @@ model List {
 }
 
 model Issue {
-  id         Int        @id @default(autoincrement())
-  order      Int
-  priority   Int
-  type       Int
-  progress   Int
-  summary    String     @db.VarChar(100)
-  descr      String?    @db.VarChar(500)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  List       List?      @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId     Int
-  User       User?      @relation(fields: [reporterId], references: [id], onDelete: Cascade)
-  reporterId Int
-  comments   Comment[]
-  assignees  Assignee[]
+  id                  Int        @id @default(autoincrement())
+  order               Int
+  priority            Int
+  type                Int
+  progress            Int
+  summary             String     @db.VarChar(100)
+  descr               String?    @db.VarChar(500)
+  abbreviationProject String?    @db.VarChar(2)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  List                List?      @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId              Int
+  User                User?      @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  reporterId          Int
+  comments            Comment[]
+  assignees           Assignee[]
 }
 
 model Assignee {

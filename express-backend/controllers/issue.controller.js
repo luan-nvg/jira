@@ -40,6 +40,11 @@ exports.getIssuesInProject = async (req, res) => {
 
 exports.createIssue = async (req, res) => {
   try {
+    const id = req.body.projectId;
+    const project = await client.project.findUnique({ where: { id: id } });
+    const { abbreviation } = project;
+    req.body.abbreviationProject = abbreviation;
+    
     const { projectId, listId, assignees, ...data } = req.body; // opt out projectId
     const { _count: order } = await client.issue.aggregate({ where: { listId }, _count: true });
     const { id: issueId } = await client.issue.create({
