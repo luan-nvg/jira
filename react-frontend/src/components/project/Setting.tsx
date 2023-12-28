@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { selectMembers } from '../../api/endpoints/member.endpoint';
 import { selectAuthUser } from '../../api/endpoints/auth.endpoint';
 import toast from 'react-hot-toast';
+import MembersDropdown from './MemberDropdown';
 
 const Setting = () => {
   const [updateProject, { isLoading }] = useUpdateProjectMutation();
@@ -66,7 +67,7 @@ const Setting = () => {
           darkEnabled
           readOnly={!isAdmin}
         />
-        <MemberInput members={members} projectId={id} readOnly={!isAdmin} />
+        <MembersDropdown />
         <div className='mt-2'>
           {!isAdmin && (
             <span className='block text-sm text-red-400'>
